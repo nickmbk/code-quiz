@@ -2,6 +2,14 @@
 var startButton = document.getElementById("start");
 // select the time span that will display the time
 var timeSpan = document.getElementById("time");
+// selects the start div that shows the start of the game, including the instructions
+var startDiv = document.querySelector(".start");
+// selects the questions div
+var questionsDiv = document.querySelector("#questions");
+// selects the question title, where the question will be displayed
+var questionTitle = document.querySelector("#question-title");
+// selects the choices div where the multiple choice answers will be shown
+var choicesDiv = document.querySelector("#choices");
 
 // sets how long the timer will be
 var timer = 30;
