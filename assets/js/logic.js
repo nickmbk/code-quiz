@@ -1,7 +1,7 @@
 // use a variable to select the start button
-var startButton = document.querySelector("start");
+var startButton = document.querySelector("#start");
 // select the time span that will display the time
-var timeSpan = document.querySelector("time");
+var timeSpan = document.querySelector("#time");
 // selects the start div that shows the start of the game, including the instructions
 var startDiv = document.querySelector(".start");
 // selects the questions div
