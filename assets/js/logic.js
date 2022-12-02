@@ -38,11 +38,19 @@ function setTime() {
         // the 1000 below tells setInterval to run every 1000 milliseconds (1 second)
     }, 1000);
 }
+  
+// hides the start div and displays the question div ready to start showing the questions and then moves on to the displayQuestions function
+function showQuestions() {
+    startDiv.classList.add("hide");
+    questionsDiv.classList.remove("hide");
+    displayQuestions();
+}
 
 // start the game, begins when start button is clicked
 function startGame() {
     init();
     setTime();
+    showQuestions();
 }
 
 // listens out for when the start button is clicked to then run the startGame function
