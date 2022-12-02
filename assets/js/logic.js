@@ -17,6 +17,8 @@ var timer = 30;
 var quizFinished = false;;
 // stores the players score at the end of the quiz
 var score = 0;
+// keep track of amount of questions answered
+var questionCount = 0;
 
 // declare the variable now to be used in the setTime function, need to be global to clearInterval in the init function otherwise it won't clear
 var timerInterval;
@@ -27,6 +29,7 @@ function init() {
     score = 0;
     quizFinished = false;
     timeSpan.textContent = 30;
+    questionCount = 0;
     clearInterval(timerInterval);
 }
 
@@ -47,18 +50,42 @@ function setTime() {
     }, 1000);
 }
   
-// hides the start div and displays the question div ready to start showing the questions and then moves on to the displayQuestions function
+// hides the start div and displays the question div ready to start showing the questions
 function showQuestions() {
     startDiv.classList.add("hide");
     questionsDiv.classList.remove("hide");
-    displayQuestions();
 }
+
+function setupQuestions() {
+    // dynamically create an ordered list
+    var answersOl = document.createElement("ol");
+    // and append to the html
+    choicesDiv.append(answersOl);
+    // create list items
+    for (var i = 0; i < 4; i++) {
+        var answersLi = document.createElement("li");
+        // set each list item with a data attribute so we can later select the answers
+        answersLi.setAttribute("data-answer", [i]);
+        answersOl.append(answersLi);
+    }
+}
+    
+// function displayQuestions() {
+//     // use a while loop to display questions until all questions answered
+//     while (questionCount < questions.length) {
+//         questionTitle.textContent = questions[questionCount].question;
+        
+//     }
+//         answersLi.textContent = questions[0].answers[i];
+// }   
 
 // start the game, begins when start button is clicked
 function startGame() {
     init();
     setTime();
     showQuestions();
+    setupQuestions();
+    // displayQuestions();
 }
 
 // listens out for when the start button is clicked to then run the startGame function
