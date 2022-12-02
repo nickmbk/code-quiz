@@ -7,7 +7,8 @@ var questions = [
         "a cat",
         "a kitchen utensil",
         "a vacuum cleaner"
-    ]
+        ],
+    correctAnswer: 0
     },
     {
     question: "What is a ul?",
@@ -16,6 +17,7 @@ var questions = [
         "a cat",
         "a kitchen utensil",
         "a vacuum cleaner"
-        ]
+        ],
+    correctAnswer: 0
     }
 ]
