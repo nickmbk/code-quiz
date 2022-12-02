@@ -7,10 +7,25 @@ var timeSpan = document.getElementById("time");
 var timer = 30;
 // determines if the end of the quiz was reached
 var quizFinished = false;;
+// stores the players score at the end of the quiz
+var score = 0;
+
+// declare the variable now to be used in the setTime function, need to be global to clearInterval in the init function otherwise it won't clear
+var timerInterval;
+
+// function to set every back to the beginning if the player starts the quiz again
+function init() {
+    timer = 30;
+    score = 0;
+    quizFinished = false;
+    timeSpan.textContent = 30;
+    clearInterval(timerInterval);
+}
 
 // sets and starts the timer
 function setTime() {
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
+        console.log(timerInterval);
         // reduces the timer variable by 1 every second
         timer--;
         // displays the time remaining in the time span element in the html
@@ -26,6 +41,7 @@ function setTime() {
 
 // start the game, begins when start button is clicked
 function startGame() {
+    init();
     setTime();
 }
 
