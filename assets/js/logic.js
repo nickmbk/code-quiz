@@ -18,10 +18,11 @@ var finalScoreSpan = document.querySelector("#final-score");
 var initialsTextBox = document.querySelector("#initials");
 // selects the submit button for the user submitting scores
 var submitButton = document.querySelector("#submit");
-
+// select a sound that plays when a correct answer is clicked
 var correctSound = document.querySelector("audio[data-sound='correct']");
-
+// select a sound that plays when an incorrect answer is clicked
 var incorrectSound = document.querySelector("audio[data-sound='incorrect']");
+var feedbackDiv = document.querySelector("#feedback");
 
 
 // sets how long the timer will be
@@ -133,10 +134,22 @@ function clearQA() {
 
 function correctAnswer() {
     correctSound.play();
+    feedbackDiv.textContent = "Correct!";
+    feedbackDiv.classList.remove("hide");
+    var feedbackTimer = 2;
+    var feedbackInterval = setInterval(function() {
+        feedbackTimer--;
+        if (feedbackTimer === 0) {
+            clearInterval(feedbackInterval);
+            feedbackDiv.classList.add("hide");
+        }
+    }, 1000);
 }
 
 function incorrectAnswer() {
     incorrectSound.play();
+    feedbackDiv.textContent = "Wrong!";
+    feedbackDiv.classList.remove("hide");
 }
 
 function finishQuiz() {
