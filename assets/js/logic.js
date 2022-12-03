@@ -58,6 +58,10 @@ function setTime() {
         if (timer <= 0 || quizFinished) {
             clearInterval(timerInterval);
         }
+        // if the timer reaches zero finish the quiz
+        if (timer === 0) {
+            finishQuiz();
+        }
         // the 1000 below tells setInterval to run every 1000 milliseconds (1 second)
     }, 1000);
 }
