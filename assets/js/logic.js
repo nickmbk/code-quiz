@@ -86,12 +86,14 @@ function setupQuestions() {
     choicesDiv.append(answersOl);
     // create list items
     for (var i = 0; i < 4; i++) {
+        var answersButton = document.createElement("button");
         var answersLi = document.createElement("li");
         // set each list item with a data attribute so we can later select the answers
         answersLi.setAttribute("data-answer", i);
         // set the class of each list item as the same number of the answer
-        answersLi.setAttribute("class", i);
-        answersOl.append(answersLi);
+        answersLi.classList.add(i);
+        answersOl.append(answersButton);
+        answersButton.append(answersLi);
     }
 }
 
@@ -100,8 +102,8 @@ function displayQuestions() {
     for (var i = 0; i < 4; i++) {
         // select the the class numbered the same as the answers index number, found stack overflow article suggesting use CSS.escape
         //https://stackoverflow.com/questions/37081721/use-variables-in-document-queryselector
-        var listItem = document.querySelector("." + CSS.escape(i));
-        listItem.textContent = questions[questionCount].answers[i];
+        var listItemButton = document.querySelector("." + CSS.escape(i));
+        listItemButton.textContent = questions[questionCount].answers[i];
     }
 }
 
