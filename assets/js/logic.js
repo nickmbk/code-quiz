@@ -22,8 +22,10 @@ var submitButton = document.querySelector("#submit");
 var correctSound = document.querySelector("audio[data-sound='correct']");
 // select a sound that plays when an incorrect answer is clicked
 var incorrectSound = document.querySelector("audio[data-sound='incorrect']");
+
 var feedbackDiv = document.querySelector("#feedback");
 
+var highscoreOl = document.querySelector("#highscores");
 
 // sets how long the timer will be
 var timer = 30;
@@ -165,6 +167,16 @@ function finishQuiz() {
     finalScoreSpan.textContent = score;
 }
 
+function saveScore() {
+    var initials = initialsTextBox.value;
+    if (initials.length !== 2) {
+        alert("Please enter your initials");
+    } else {
+        window.location.href = "./highscores.html";
+        localStorage.setItem();
+    }
+}
+
 // start the game, begins when start button is clicked
 function startGame() {
     init();
@@ -178,3 +190,5 @@ function startGame() {
 startButton.addEventListener("click", startGame);
 
 choicesDiv.addEventListener("click", answerQuestions);
+
+submitButton.addEventListener("click", saveScore);
