@@ -1,9 +1,9 @@
 var clearButton = document.querySelector("#clear");
 
-localStorage.getItems()
+// localStorage.getItems()
 
 function clearStorage() {
-    localStorage.clear;
+    localStorage.clear();
 }
 
 clearButton.addEventListener("click", clearStorage);
