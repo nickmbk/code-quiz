@@ -73,7 +73,18 @@ function setupQuestions() {
 }
 
 function answerQuestions() {
-
+    displayQuestions();
+    choicesDiv.addEventListener("click", function(event) {
+        var element = event.target;
+        console.log(element)
+        if (element.matches("li")) {
+            var clickedAnswer = element.getAttribute("data-answer");
+            if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
+                clearQA();
+                questionCount++;
+            }
+        }
+    })
 }
     
 function displayQuestions() {
@@ -89,13 +100,21 @@ function displayQuestions() {
     }
 // }   
 
+function clearQA() {
+    questionTitle.textContent = "";
+        for (var i = 0; i < 4; i++) {
+            var listItem = document.querySelector("." + CSS.escape(i));
+            listItem.textContent = "";
+        }
+}
+
 // start the game, begins when start button is clicked
 function startGame() {
     init();
     setTime();
     showQuestions();
     setupQuestions();
-    displayQuestions();
+    answerQuestions();
 }
 
 // listens out for when the start button is clicked to then run the startGame function
