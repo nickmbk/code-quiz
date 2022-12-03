@@ -19,6 +19,10 @@ var initialsTextBox = document.querySelector("#initials");
 // selects the submit button for the user submitting scores
 var submitButton = document.querySelector("#submit");
 
+var correctSound = document.querySelector("audio[data-sound='correct']");
+
+var incorrectSound = document.querySelector("audio[data-sound='incorrect']");
+
 
 // sets how long the timer will be
 var timer = 30;
@@ -104,7 +108,9 @@ function answerQuestions(event) {
         var clickedAnswer = element.getAttribute("data-answer");
         if (parseInt(clickedAnswer) !== questions[questionCount].correctAnswer) {
             timer -= 10;
+            incorrectAnswer();
         } else if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
+            correctAnswer();
             clearQA();
             questionCount++;
             ("hello for the third time");
@@ -123,6 +129,14 @@ function clearQA() {
             var listItem = document.querySelector("." + CSS.escape(i));
             listItem.textContent = "";
         }
+}
+
+function correctAnswer() {
+    correctSound.play();
+}
+
+function incorrectAnswer() {
+    incorrectSound.play();
 }
 
 function finishQuiz() {
