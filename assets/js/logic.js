@@ -11,6 +11,7 @@ var questionTitle = document.querySelector("#question-title");
 // selects the choices div where the multiple choice answers will be shown
 var choicesDiv = document.querySelector("#choices");
 
+
 // sets how long the timer will be
 var timer = 30;
 // determines if the end of the quiz was reached
@@ -76,34 +77,39 @@ function setupQuestions() {
 }
 
 function answerQuestions() {
-    displayQuestions();
-    choicesDiv.addEventListener("click", function(event) {
-        var element = event.target;
-        console.log(element)
-        if (element.matches("li")) {
-            var clickedAnswer = element.getAttribute("data-answer");
-            if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
-                clearQA();
-                questionCount++;
-            } else {
-                timer -= 10;
+    // while (questionCount < questions.length) {
+        choicesDiv.addEventListener("click", function(event) {
+            var element = event.target;
+            if (element.matches("li")) {
+                var clickedAnswer = element.getAttribute("data-answer");
+                if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
+                    clearQA();
+                    questionCount++;
+                    if (questionCount < questions.length) {
+                        displayQuestions();
+                    } else {
+                        finishQuiz();
+                    }
+                    
+                } else {
+                    timer -= 10;
+                }
             }
-        }
-    })
-}
+        })
+    }
+// }
     
 function displayQuestions() {
-    // use a while loop to display questions until all questions answered
-    // while (questionCount < questions.length) {
-        questionTitle.textContent = questions[questionCount].question;
-        for (var i = 0; i < 4; i++) {
-            // select the the class numbered the same as the answers index number, found stack overflow article suggesting use CSS.escape
-            //https://stackoverflow.com/questions/37081721/use-variables-in-document-queryselector
-            var listItem = document.querySelector("." + CSS.escape(i));
-            listItem.textContent = questions[questionCount].answers[i];
-        }
+    questionTitle.textContent = questions[questionCount].question;
+    for (var i = 0; i < 4; i++) {
+        // select the the class numbered the same as the answers index number, found stack overflow article suggesting use CSS.escape
+        //https://stackoverflow.com/questions/37081721/use-variables-in-document-queryselector
+        var listItem = document.querySelector("." + CSS.escape(i));
+        listItem.textContent = questions[questionCount].answers[i];
     }
-// }   
+    answerQuestions();
+}
+
 
 function clearQA() {
     questionTitle.textContent = "";
@@ -119,7 +125,7 @@ function startGame() {
     setTime();
     showQuestions();
     setupQuestions();
-    answerQuestions();
+    displayQuestions();
 }
 
 // listens out for when the start button is clicked to then run the startGame function
