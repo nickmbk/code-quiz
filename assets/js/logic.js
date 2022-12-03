@@ -92,30 +92,26 @@ function displayQuestions() {
         var listItem = document.querySelector("." + CSS.escape(i));
         listItem.textContent = questions[questionCount].answers[i];
     }
-    answerQuestions();
 }
 
-function answerQuestions() {
-    // while (questionCount < questions.length) {
-        choicesDiv.addEventListener("click", function(event) {
-            var element = event.target;
-            if (element.matches("li")) {
-                var clickedAnswer = element.getAttribute("data-answer");
-                if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
-                    clearQA();
-                    questionCount++;
-                    if (questionCount <= questions.length - 1) {
-                        displayQuestions();
-                    } else {
-                        finishQuiz();
-                    }
-                } else {
-                    timer -= 10;
-                }
+function answerQuestions(event) {
+    var element = event.target;
+    if (element.matches("li")) {
+        var clickedAnswer = element.getAttribute("data-answer");
+        if (parseInt(clickedAnswer) !== questions[questionCount].correctAnswer) {
+            timer -= 10;
+        } else if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
+            clearQA();
+            questionCount++;
+            ("hello for the third time");
+            if (questionCount === questions.length) {
+                finishQuiz();
+            } else if (questionCount !== questions.length) {
+                displayQuestions();
             }
-        })
+        } 
     }
-// }
+}
     
 function clearQA() {
     questionTitle.textContent = "";
@@ -144,3 +140,5 @@ function startGame() {
 
 // listens out for when the start button is clicked to then run the startGame function
 startButton.addEventListener("click", startGame);
+
+choicesDiv.addEventListener("click", answerQuestions);
