@@ -33,6 +33,8 @@ var quizFinished = false;;
 var score = 0;
 // keep track of amount of questions answered
 var questionCount = 0;
+// holds whether the answer to the current question is correct or not
+var correctAnswer = false;
 
 // declare the variable now to be used in the setTime function, need to be global to clearInterval in the init function otherwise it won't clear
 var timerInterval;
@@ -109,18 +111,20 @@ function answerQuestions(event) {
         var clickedAnswer = element.getAttribute("data-answer");
         if (parseInt(clickedAnswer) !== questions[questionCount].correctAnswer) {
             timer -= 10;
-            incorrectAnswer();
+            correctAnswer = false;
+            feedback();
         } else if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
-            correctAnswer();
-            clearQA();
-            questionCount++;
-            ("hello for the third time");
-            if (questionCount === questions.length) {
-                finishQuiz();
-            } else if (questionCount !== questions.length) {
-                displayQuestions();
-            }
-        } 
+            correctAnswer = true;
+            feedback();
+        }
+    clearQA();
+    questionCount++;
+    if (questionCount === questions.length) {
+        finishQuiz();
+    } else if (questionCount !== questions.length) {
+        displayQuestions();
+    }
+        
     }
 }
     
@@ -132,9 +136,14 @@ function clearQA() {
         }
 }
 
-function correctAnswer() {
-    correctSound.play();
-    feedbackDiv.textContent = "Correct!";
+function feedback() {
+    if (correctAnswer) {
+        correctSound.play();
+        feedbackDiv.textContent = "Correct!";
+    } else if (!correctAnswer) {
+        incorrectSound.play();
+        feedbackDiv.textContent = "Wrong!";
+    }
     feedbackDiv.classList.remove("hide");
     var feedbackTimer = 2;
     var feedbackInterval = setInterval(function() {
@@ -144,12 +153,6 @@ function correctAnswer() {
             feedbackDiv.classList.add("hide");
         }
     }, 1000);
-}
-
-function incorrectAnswer() {
-    incorrectSound.play();
-    feedbackDiv.textContent = "Wrong!";
-    feedbackDiv.classList.remove("hide");
 }
 
 function finishQuiz() {
