@@ -65,18 +65,28 @@ function setupQuestions() {
     for (var i = 0; i < 4; i++) {
         var answersLi = document.createElement("li");
         // set each list item with a data attribute so we can later select the answers
-        answersLi.setAttribute("data-answer", [i]);
+        answersLi.setAttribute("data-answer", i);
+        // set the class of each list item as the same number of the answer
+        answersLi.setAttribute("class", i);
         answersOl.append(answersLi);
     }
 }
+
+function answerQuestions() {
+
+}
     
-// function displayQuestions() {
-//     // use a while loop to display questions until all questions answered
-//     while (questionCount < questions.length) {
-//         questionTitle.textContent = questions[questionCount].question;
-        
-//     }
-//         answersLi.textContent = questions[0].answers[i];
+function displayQuestions() {
+    // use a while loop to display questions until all questions answered
+    // while (questionCount < questions.length) {
+        questionTitle.textContent = questions[questionCount].question;
+        for (var i = 0; i < 4; i++) {
+            // select the the class numbered the same as the answers index number, found stack overflow article suggesting use CSS.escape
+            //https://stackoverflow.com/questions/37081721/use-variables-in-document-queryselector
+            var listItem = document.querySelector("." + CSS.escape(i));
+            listItem.textContent = questions[questionCount].answers[i];
+        }
+    }
 // }   
 
 // start the game, begins when start button is clicked
@@ -85,7 +95,7 @@ function startGame() {
     setTime();
     showQuestions();
     setupQuestions();
-    // displayQuestions();
+    displayQuestions();
 }
 
 // listens out for when the start button is clicked to then run the startGame function
