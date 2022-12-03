@@ -36,14 +36,17 @@ function init() {
 // sets and starts the timer
 function setTime() {
     timerInterval = setInterval(function() {
-        console.log(timerInterval);
         // reduces the timer variable by 1 every second
         timer--;
         // displays the time remaining in the time span element in the html
         timeSpan.textContent = timer;
-    
+        // if the timer goes below zero, set it to zero and display it as zero on the page
+        if (timer < 0) {
+            timer = 0;
+            timeSpan.textContent = timer;
+        }
         // stops the timer if the timer reachers 0 or the quizFinished variable becomes true (will be set to true at the end of the quiz)
-        if (timer === 0 || quizFinished) {
+        if (timer <= 0 || quizFinished) {
             clearInterval(timerInterval);
         }
         // the 1000 below tells setInterval to run every 1000 milliseconds (1 second)
@@ -82,6 +85,8 @@ function answerQuestions() {
             if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
                 clearQA();
                 questionCount++;
+            } else {
+                timer -= 10;
             }
         }
     })
