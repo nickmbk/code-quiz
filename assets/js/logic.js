@@ -10,6 +10,14 @@ var questionsDiv = document.querySelector("#questions");
 var questionTitle = document.querySelector("#question-title");
 // selects the choices div where the multiple choice answers will be shown
 var choicesDiv = document.querySelector("#choices");
+// selects the end screen div for when the quiz is finished
+var endScreenDiv = document.querySelector("#end-screen");
+// selects the final score span to show the users final score
+var finalScoreSpan = document.querySelector("#final-score");
+// selects the inititals text box for the user to enter their initials to save their score
+var initialsTextBox = document.querySelector("#initials");
+// selects the submit button for the user submitting scores
+var submitButton = document.querySelector("#submit");
 
 
 // sets how long the timer will be
@@ -76,29 +84,6 @@ function setupQuestions() {
     }
 }
 
-function answerQuestions() {
-    // while (questionCount < questions.length) {
-        choicesDiv.addEventListener("click", function(event) {
-            var element = event.target;
-            if (element.matches("li")) {
-                var clickedAnswer = element.getAttribute("data-answer");
-                if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
-                    clearQA();
-                    questionCount++;
-                    if (questionCount < questions.length) {
-                        displayQuestions();
-                    } else {
-                        finishQuiz();
-                    }
-                    
-                } else {
-                    timer -= 10;
-                }
-            }
-        })
-    }
-// }
-    
 function displayQuestions() {
     questionTitle.textContent = questions[questionCount].question;
     for (var i = 0; i < 4; i++) {
@@ -110,13 +95,42 @@ function displayQuestions() {
     answerQuestions();
 }
 
-
+function answerQuestions() {
+    // while (questionCount < questions.length) {
+        choicesDiv.addEventListener("click", function(event) {
+            var element = event.target;
+            if (element.matches("li")) {
+                var clickedAnswer = element.getAttribute("data-answer");
+                if (parseInt(clickedAnswer) === questions[questionCount].correctAnswer) {
+                    clearQA();
+                    questionCount++;
+                    if (questionCount <= questions.length - 1) {
+                        displayQuestions();
+                    } else {
+                        finishQuiz();
+                    }
+                } else {
+                    timer -= 10;
+                }
+            }
+        })
+    }
+// }
+    
 function clearQA() {
     questionTitle.textContent = "";
         for (var i = 0; i < 4; i++) {
             var listItem = document.querySelector("." + CSS.escape(i));
             listItem.textContent = "";
         }
+}
+
+function finishQuiz() {
+    quizFinished = true;
+    score = timer;
+    questionsDiv.classList.add("hide");
+    endScreenDiv.classList.remove("hide");
+    finalScoreSpan.textContent = score;
 }
 
 // start the game, begins when start button is clicked
