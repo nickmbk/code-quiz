@@ -27,7 +27,7 @@ var incorrectSound = document.querySelector("audio[data-sound='incorrect']");
 var feedbackDiv = document.querySelector("#feedback");
 
 // sets how long the timer will be
-var timer = 30;
+var timer = 75;
 // determines if the end of the quiz was reached
 var quizFinished = false;
 // stores the players score at the end of the quiz
@@ -42,10 +42,10 @@ var timerInterval;
 
 // function to set everything back to the beginning if the player starts the quiz again
 function init() {
-  timer = 30;
+  timer = 75;
   score = 0;
   quizFinished = false;
-  timeSpan.textContent = 30;
+  timeSpan.textContent = 75;
   questionCount = 0;
   // this needs to be done here otherwise the interval runs multiple times, leading to a faster time
   clearInterval(timerInterval);
